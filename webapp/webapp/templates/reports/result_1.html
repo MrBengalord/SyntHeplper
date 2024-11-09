@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .download-link {
+    color: #8d6b46; /* Цвет текста */
+    text-decoration: underline; /* Подчеркивание */
+    font-weight: bold; /* Полужирный текст */
+    cursor: pointer; /* Курсор указателя */
+  }
+
+  .download-link:hover {
+    color: #8d6b4696; /* Цвет текста при наведении */
+    text-decoration: none;  /* Удаление подчеркивания при наведении */
+  }
+</style>
+<div id="" class="portfolio-details">
+  <div class="container">
+    <!-- Ссылка на скачивание последнего файла -->
+    <div class="row mb-3">
+      <div class="col-lg-12 text-center">
+        <a href="{{ url_for('download_latest') }}" class="download-link">Скачать файл с лемматизированными комментариями</a>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-lg-12">
+        <h2>Результаты оцифровки</h2>
+        <h3 class="p-subtitle">Ваш запрос успешно обработан</h3>
+      </div>
+    </div>
+    <div class="row mb-3 align-items-start"> <!-- Aдаптация для верхнего выравнивания -->
+      <div class="col-lg-6 p-result-text mb-3"> <!-- Левая часть с таблицей -->
+        <p>{{ result|safe }}</p>
+      </div>
+      <div class="col-lg-6 row mb-3 wordcloud-image"> <!-- Правая часть с изображением -->
+        {% if image_path %}
+        <img src="{{ url_for('static', filename=image_path) }}" alt="WordCloud">
+        {% endif %}
+      </div>
+    </div>
+    <div class="row mt-4"> <!-- Добавлен отступ сверху -->
+      <div class="col-lg-12 text-center mb-3"> <!-- Центрирование кнопки -->
+        <a href="/" class="btn btn-primary btn-lg mt-3">Назад</a> <!-- Обновляем ссылку на кнопку -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
