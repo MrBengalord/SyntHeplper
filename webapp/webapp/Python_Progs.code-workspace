@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../Python_Progs"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
