@@ -6,8 +6,8 @@ import time
 from openai import OpenAI
 
 app = Flask(__name__)
-client = OpenAI(api_key="sk-proj-OWfA3fGnSH2HIlGcMGHxT3BlbkFJV1ExDfmdLFDZfgB13GKo")
-value_assistant = "asst_qO6AOTay0YXECmbAcbpvgM6X"
+client = OpenAI(api_key="sk-proj-")
+value_assistant = "asst_"
 
 text1 = request.form.get('text1', '')  # Получение данных из первого текстового поля
 text2 = request.form.get('text2', '')  # Получение данных из второго текстового поля
