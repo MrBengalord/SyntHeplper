@@ -1,0 +1,145 @@
+{% block contacts %}
+  <section id="form3" class="contact contact__form3">
+    <div class="container">
+      <div class="section-title">
+        <h2>Оцифровка списка слов</h2>
+        <p>Оцифруйте ваш список слов по выбранному файлу</p>
+      </div>
+
+      <form action="/static/processing/WordCount" method="post" enctype="multipart/form-data" role="form" class="eform mt-4" onsubmit="showLoadingScreen()">
+        <div class="row">
+          <div class="col-md-12 form-group mt-3">
+            <label for="text1" class="form-label">Введите отредактированное облако слов</label>
+            <textarea class="form-control" name="text" id="text" rows="3" placeholder="Слово1, слово2, слово3, слово4 ... словоХ" required></textarea>
+          </div>
+
+          <div class="col-md-12 form-group">
+            <label for="file" class="form-label">Выберите файл (обязательно)</label>
+            <div class="custom-file-upload">
+              <button type="button" class="custom-file-button">Выберите файл</button>
+              <input type="file" class="custom-input" id="file" name="file" required>
+            </div>
+          </div>
+        
+        <div class="row mb-4"></div>
+        <div class="text-center">
+          <button type="submit">Начать оцифровку</button>
+          <br><br>
+          <button type="button" id="show-instructions" class="btn-primary" style="
+          background: none;
+          border:  0;
+          text-decoration: underline;
+      ">Инструкция</button>
+        </div>
+      </form>
+
+      <div class="loader" id="loader"></div>
+
+      <script>
+        document.querySelectorAll('.custom-file-upload input[type=file]').forEach(function(input) {
+          input.addEventListener('change', function() {
+            var label = this.previousElementSibling;
+            var fileName = this.files.length > 0 ? this.files[0].name : "Выберите файл";
+            label.textContent = fileName;
+          });
+        });
+      </script>
+    </div>
+  </section>
+
+  <div id="instructionModal" class="modal">
+    <div class="modal-content mb-4">
+      <span class="close">&times;</span>
+      <h2>Инструкция по использованию:</h2>
+      <p>Данный инструмент позволяет создавать таблицу с подсчетом абсолютов упоминаний введенных слов. Вам необходимо ввести список слов и выбрать файл. Поддерживаемые форматы файлов: .csv, .xlsx, .xls. Произойдет подсчёт упоминаний введенных слов в файле и будет сформирована таблица с абсолютами. Так же будет создана картинка с наиболее упоминаемыми словами в файле. Ограничения: размер прикладываемого файла не более 15 МБ.</p>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 2, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: rgba(0, 0, 0, 0.4);
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Styles for the primary button */
+    .btn-primary {
+      background-color: #8d6b46;
+      color: whitesmoke;
+      border-color: #8d6b46;
+      border-radius: 4px;
+      transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: whitesmoke;
+      border-color: #8d6b46;
+      border-radius: 4px;
+      transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
+    }
+
+    .btn-primary:focus, 
+    .btn-primary:active {
+      background-color: #8d6b46;
+      color: whitesmoke;
+      border-color: #8d6b46;
+      box-shadow: none;
+    }
+  </style>
+
+  </div>
+  <div class="loading-overlay" id="loadingOverlay">
+      Подождите, идет анализ...
+  </div>
+
+  <script>
+    var modal = document.getElementById("instructionModal");
+    var btn = document.getElementById("show-instructions");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    function showLoadingScreen() {
+      document.getElementById('loadingOverlay').style.display = 'block';
+                                 }
+
+    function hideLoadingScreen() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+                                 }
+  </script>
+{% endblock %}
